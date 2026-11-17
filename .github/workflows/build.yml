@@ -5,11 +5,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
       - name: DSP engine tests (MSVC)
         shell: cmd
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          cl /nologo /O2 /EHsc /std:c++17 /ISource Tests\dsp_test.cpp /Fe:dsp_test.exe && dsp_test.exe
+          cl /nologo /O2 /EHsc /std:c++17 /ISource Tests\dsp_test.cpp /Fe:dsp_test.exe
+          dsp_test.exe
       - name: Configure
         run: cmake -B build -G "Visual Studio 17 2022" -A x64
       - name: Build
